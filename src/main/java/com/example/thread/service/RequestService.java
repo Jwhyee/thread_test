@@ -1,16 +1,28 @@
 package com.example.thread.service;
 
+import com.example.thread.domain.Request;
+import com.example.thread.domain.RequestDto;
+import com.example.thread.domain.RequestRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 @Service
+@RequiredArgsConstructor
 public class RequestService {
 
-    public void pooh(long id) {
-        long sum = id;
-        for (int i = 0; i < 100; i++) {
-            for (int j = 0; j < 100; j++) {
-                sum += i * j;
-            }
-        }
+    private final RequestRepository repository;
+
+    public Request saveRequest(RequestDto dto) {
+        return repository.save(Request.builder()
+                .title(dto.getRequestTitle())
+                .savedDate(LocalDateTime.now())
+                .build());
+    }
+
+    public List<Request> findAll() {
+        return repository.findAll();
     }
 }
