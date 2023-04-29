@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:~/thread_test
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+server:
+  tomcat:
+    threads:
+      # ?? ?? ?? Thread ? (Default : 200)
+      max : 1
+      # ?? ?? ?? ?? Thread ? (Default : 10)
+      min-spare : 1
+    # ?? ???? ?? ? ? ? ??? ??? ???? ?? ?? ?? (Default: 100)
+    accept-count : 5
+    # ??? ??? ? ?? ?? Connection? ? (Default : 8192)
+#    max-connections : 10
