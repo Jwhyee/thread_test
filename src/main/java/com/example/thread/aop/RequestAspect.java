@@ -25,7 +25,7 @@ public class RequestAspect {
         // 종료 시간
         long end = System.currentTimeMillis();
 
-        log.info("start={}, end={}, total={}", start, end, (end - start) + " ms");
+        log.info("total = {}", (end - start) + " ms");
 
         return result;
     }

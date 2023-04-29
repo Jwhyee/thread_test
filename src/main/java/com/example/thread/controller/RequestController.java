@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @Slf4j
@@ -20,13 +21,15 @@ public class RequestController {
 
     @PostMapping("/")
     public Request doRequest(RequestDto dto) {
-        return requestService.saveRequest(dto);
+        Request request = requestService.saveRequest(dto);
+        log.info("request = {}", request);
+        return request;
     }
 
     @GetMapping("/data")
     public Object showData() {
-        List<Request> findAllData = requestService.findAll();
-        log.info("data_size={}", findAllData.size());
-        return findAllData;
+        Map<Long, Request> requestMap = requestService.listToMap();
+        log.info("data_size={}", requestMap.size());
+        return requestMap;
     }
 }

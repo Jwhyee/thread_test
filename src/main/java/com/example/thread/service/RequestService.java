@@ -5,9 +5,14 @@ import com.example.thread.domain.RequestDto;
 import com.example.thread.domain.RequestRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -22,7 +27,14 @@ public class RequestService {
                 .build());
     }
 
+    @Transactional(readOnly = true)
     public List<Request> findAll() {
         return repository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public Map<Long, Request> listToMap() {
+        return repository.findAll().stream()
+                .collect(Collectors.toMap(Request::getId, Function.identity()));
     }
 }
